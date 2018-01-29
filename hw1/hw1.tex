@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+
+\newcommand{\q}[1]{\subsection*{Question {#1}}}
+\newcommand{\partt}[1]{\paragraph*{{#1}.}}
+
+\newcommand{\code}[1]{\textsf{#1}}
+
+\title{Homework Assignment 1\\
+	Performance Metrics\\
+	CS/ECE 6810: Computer Architecture}
+	
+\author{Maryam Dabaghchian-u1078006}
+
+%\date{\today}
+
+\begin{document}
+\maketitle
+
+\q{1} 
+
+\partt{i} According to assumption all of the applications are equally likely to be 
+executed by users, i.e., they are fairly executed. So, we compute sum of the 
+weighted execution times. To that end, let us consider the computer system (BASE) 
+as the reference machine. Thus, the weights of applications A, B, C, and D will 
+respectively be: $\frac{1}{3}, \frac{2}{5}, 1, and \frac{1}{12}$. That results in 
+the sum of weighted execution time for every machine as shown in 
+Table~\ref{tbl:wext}.
+
+\begin{table}[h]
+\center
+\begin{tabular}{|l|r|}
+	\hline
+	 & \textbf{Weighted Sum} \\
+	\hline
+	BASE & $(3 \times \frac{1}{3}) + (\frac{5}{2} \times \frac{2}{5}) + 
+	(1 \times 1) + (12 \times \frac{1}{12}) = 1.00$  \\
+	\hline
+	NEW1 & $(7 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
+	(5 \times 1) + (1 \times \frac{1}{12}) = 8.62$ \\
+	\hline
+	NEW2 & $(2 \times \frac{1}{3}) + (1 \times \frac{2}{5}) + 
+	(3 \times 1) + (8 \times \frac{1}{12}) = 4.73$ \\
+	\hline
+	NEW3 & $(1 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
+	(2 \times 1) + (13 \times \frac{1}{12}) = 4.62$ \\
+	\hline
+\end{tabular}
+\caption{(i.) Sum of weighted execution times.}
+\label{tbl:wext}
+\end{table}
+
+
+\partt{ii}
+
+\begin{table}[h]
+\center
+\begin{tabular}{|l|r|}
+	\hline
+	 & \textbf{Total Energy} \\
+	\hline
+	BASE & $20 + 40 + 50 + 15 = 125$  \\
+	\hline
+	NEW1 & $10 + 30 + 15 + 30 = 85$ \\
+	\hline
+	NEW2 & $30 + 60 + 20 + 20 = 130$ \\
+	\hline
+	NEW3 & $70 + 35 + 30 + 10 = 145$ \\
+	\hline
+\end{tabular}
+\caption{(ii.) Total energy consumption for every machine.}
+\label{tbl:wext}
+\end{table}
+
+
+\partt{iii.} Power = $\frac{Energy}{Time}$  
+
+\begin{table}[h]
+\center
+\begin{tabular}{|l|r|}
+	\hline
+	 & \textbf{Total Power} \\
+	\hline
+	BASE & $\frac{20}{3} + \frac{40}{2.5} + \frac{50}{1} + \frac{15}{12} = 73.92$  \\
+	\hline
+	NEW1 & $\frac{10}{7} + \frac{30}{3} + \frac{15}{5} + \frac{30}{1} = 44.43$ \\
+	\hline
+	NEW2 & $\frac{30}{2} + \frac{60}{1} + \frac{20}{3} + \frac{20}{8} = 84.17$ \\
+	\hline
+	NEW3 & $\frac{70}{1} + \frac{35}{3} + \frac{30}{2} + \frac{10}{13} = 97.44$ \\
+	\hline
+\end{tabular}
+\caption{(iii.) Total power required for every machine.}
+\label{tbl:wext}
+\end{table}
+
+
+\end{document}
