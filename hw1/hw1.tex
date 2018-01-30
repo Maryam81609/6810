@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 
 \newcommand{\q}[1]{\subsection*{Question {#1}}}
-\newcommand{\partt}[1]{\paragraph*{{#1}.}}
+\renewcommand{\part}[1]{\paragraph*{{#1}.}}
 
 \newcommand{\code}[1]{\textsf{#1}}
 
@@ -18,7 +18,7 @@
 
 \q{1} 
 
-\partt{i} According to assumption all of the applications are equally likely to be 
+\part{i} According to assumption all of the applications are equally likely to be 
 executed by users, i.e., they are fairly executed. So, we compute sum of the 
 weighted execution times. To that end, let us consider the computer system (BASE) 
 as the reference machine. Thus, the weights of applications A, B, C, and D will 
@@ -45,12 +45,12 @@ Table~\ref{tbl:wext}. So, machine BASE has the least execution time.
 	(2 \times 1) + (13 \times \frac{1}{12}) = 4.62$ \\
 	\hline
 \end{tabular}
-\caption{(i.) Sum of weighted execution times.}
+\caption{(i) Sum of weighted execution times.}
 \label{tbl:wext}
 \end{table}
 
 
-\partt{ii} We compute the weighted sum of energy for each machine similar to 
+\part{ii} We compute the weighted sum of energy for each machine similar to 
 part (i). So, the weight of applications A, B, C, and D will respectively be: 
 $\frac{1}{20}, \frac{1}{40}, \frac{1}{50}, and \frac{1}{15}$. As shown in 
 Table~\ref{tbl:wenrgy}, machine NEW1 has the least energy consumption.
@@ -74,12 +74,12 @@ Table~\ref{tbl:wenrgy}, machine NEW1 has the least energy consumption.
 	(30 \times \frac{1}{50}) + (10 \times \frac{1}{15}) = 5.64$ \\
 	\hline
 \end{tabular}
-\caption{(ii.) Total energy consumption for every machine.}
+\caption{(ii) Total energy consumption for every machine.}
 \label{tbl:wenrgy}
 \end{table}
 
 
-\partt{iii.} Power shows the energy per time unit, i.e., $Power = 
+\part{iii} Power shows the energy per time unit, i.e., $Power = 
 \frac{Energy}{Time}$. Table~\ref{tbl:power} shows the power required by 
 each application on all machines.
 
@@ -102,7 +102,7 @@ each application on all machines.
 	& $\frac{10}{13}$ \\
 	\hline
 \end{tabular}
-\caption{(iii.) Power required for every application.}
+\caption{(iii) Power required for every application.}
 \label{tbl:power}
 \end{table}
 
@@ -118,21 +118,84 @@ Table~\ref{tbl:wpwr}, machine BASE consumes the least power.
 	\hline
 	 & \textbf{Total Power} \\
 	\hline
-	\textbf{BASE} & $(\frac{20}{3} \times \frac{3}{20}) + (\frac{80}{5} \times \frac{5}{80}) + (\frac{50}{1} \times \frac{1}{50}) + (\frac{15}{12} \times \frac{12}{15})  = 4$  \\
+	\textbf{BASE} & $(\frac{20}{3} \times \frac{3}{20}) + (\frac{80}{5} \times 
+	\frac{5}{80}) + (\frac{50}{1} \times \frac{1}{50}) + (\frac{15}{12} \times 
+	\frac{12}{15})  = 4$  \\
 	\hline
-	\textbf{NEW1} & $(\frac{10}{7} \times \frac{3}{20}) + (\frac{30}{3} \times \frac{5}{80}) + (\frac{15}{5} \times \frac{1}{50}) + 
+	\textbf{NEW1} & $(\frac{10}{7} \times \frac{3}{20}) + (\frac{30}{3} \times 
+	\frac{5}{80}) + (\frac{15}{5} \times \frac{1}{50}) + 
 	(\frac{30}{1} \times \frac{12}{15}) = 24.90$ \\
 	\hline
-	\textbf{NEW2} & $(\frac{30}{2} \times \frac{3}{20}) + (\frac{60}{1} \times \frac{5}{80}) + (\frac{20}{3} \times \frac{1}{50}) + 
+	\textbf{NEW2} & $(\frac{30}{2} \times \frac{3}{20}) + (\frac{60}{1} \times 
+	\frac{5}{80}) + (\frac{20}{3} \times \frac{1}{50}) + 
 	(\frac{20}{8} \times \frac{12}{15}) = 8.13$ \\
 	\hline
-	\textbf{NEW3} & $(\frac{70}{1} \times \frac{3}{20}) + (\frac{35}{3} \times \frac{5}{80}) + (\frac{30}{2} \times \frac{1}{50}) + 
+	\textbf{NEW3} & $(\frac{70}{1} \times \frac{3}{20}) + (\frac{35}{3} \times 
+	\frac{5}{80}) + (\frac{30}{2} \times \frac{1}{50}) + 
 	(\frac{10}{13} \times \frac{12}{15}) = 12.14$ \\
 	\hline
 \end{tabular}
-\caption{(iii.) Total power required for every machine.}
+\caption{(iii) Total power required for every machine.}
 \label{tbl:wpwr}
 \end{table}
+
+\q{2}
+\part{i} 
+$
+CPI = \sum \limits_{i=1}^{5} (Frequency_i \times Cycles_i) = 
+(0.1 \times 2) + (0.05 \times 1) + (0.05 \times 2) + (0.3 \times 1) + 
+(0.5 \times 4) = 2.65
+$
+
+$$
+IPC = \frac{1}{CPI} = \frac{1}{2.65} = 0.38
+$$
+
+According to the assumption, 60\% of MULT instructions are merged with ADD 
+instructions. That results in 0 number of ADD instructions and also 30\% 
+($0.6 \times 0.5 = 0.3$) reduce in total number of instructions. So, we update 
+the frequencies and cycle counts table accordingly as shown in 
+Table~\ref{tbl:newfreq}.
+
+\begin{table}[h]
+\center
+\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	 & \textbf{Load} & \textbf{Store} & \textbf{Branch} & \textbf{ADD} & 
+	 \textbf{MULT} & \textbf{FMAD} \\
+	\hline
+	\textbf{Frequency} & 14\% & 7\% & 7\% & 0\% & 29\% & 43\% \\
+	\hline
+	\textbf{Cycles} & 2 & 1 & 2 & 1 & 4 & 4 \\
+	\hline
+\end{tabular}
+\caption{(iii) Total power required for every machine.}
+\label{tbl:newfreq}
+\end{table}
+
+Now, we compute IPC based on new measures in Table~\ref{tbl:newfreq}.
+
+$
+CPI = \sum \limits_{i=1}^{6} (Frequency_i \times Cycles_i) = 
+(0.14 \times 2) + (0.07 \times 1) + (0.07 \times 2) + (0 \times 1) + 
+(0.29 \times 4) + (0.43 \times 4) = 3.37
+$
+
+$$
+IPC = \frac{1}{CPI} = \frac{1}{3.37} = 0.30
+$$
+
+\part{ii} 
+$CPUTime = CPI \times IC \times CT$
+
+$CPUTime_{old} = 2.65 \times 1 \times CT$
+
+$CPUTime_{new} = 3.37 \times 0.7 \times CT$
+
+\[
+Speedup = \frac{CPUTime_{old}}{CPUTime_{new}} = \frac{2.65 CT}{(3.37 
+\times 0.7) CT} = 1.13
+\]
 
 
 \end{document}
