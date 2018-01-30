@@ -24,7 +24,7 @@ weighted execution times. To that end, let us consider the computer system (BASE
 as the reference machine. Thus, the weights of applications A, B, C, and D will 
 respectively be: $\frac{1}{3}, \frac{2}{5}, 1, and \frac{1}{12}$. That results in 
 the sum of weighted execution time for every machine as shown in 
-Table~\ref{tbl:wext}.
+Table~\ref{tbl:wext}. So, machine BASE has the least execution time. 
 
 \begin{table}[h]
 \center
@@ -32,16 +32,16 @@ Table~\ref{tbl:wext}.
 	\hline
 	 & \textbf{Weighted Sum} \\
 	\hline
-	BASE & $(3 \times \frac{1}{3}) + (\frac{5}{2} \times \frac{2}{5}) + 
-	(1 \times 1) + (12 \times \frac{1}{12}) = 1.00$  \\
+	\textbf{BASE} & $(3 \times \frac{1}{3}) + (\frac{5}{2} \times \frac{2}{5}) + 
+	(1 \times 1) + (12 \times \frac{1}{12}) = 4.00$  \\
 	\hline
-	NEW1 & $(7 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
+	\textbf{NEW1} & $(7 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
 	(5 \times 1) + (1 \times \frac{1}{12}) = 8.62$ \\
 	\hline
-	NEW2 & $(2 \times \frac{1}{3}) + (1 \times \frac{2}{5}) + 
+	\textbf{NEW2} & $(2 \times \frac{1}{3}) + (1 \times \frac{2}{5}) + 
 	(3 \times 1) + (8 \times \frac{1}{12}) = 4.73$ \\
 	\hline
-	NEW3 & $(1 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
+	\textbf{NEW3} & $(1 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
 	(2 \times 1) + (13 \times \frac{1}{12}) = 4.62$ \\
 	\hline
 \end{tabular}
@@ -50,7 +50,10 @@ Table~\ref{tbl:wext}.
 \end{table}
 
 
-\partt{ii}
+\partt{ii} We compute the weighted sum of energy for each machine similar to 
+part (i). So, the weight of applications A, B, C, and D will respectively be: 
+$\frac{1}{20}, \frac{1}{40}, \frac{1}{50}, and \frac{1}{15}$. As shown in 
+Table~\ref{tbl:wenrgy}, machine NEW1 has the least energy consumption.
 
 \begin{table}[h]
 \center
@@ -58,21 +61,56 @@ Table~\ref{tbl:wext}.
 	\hline
 	 & \textbf{Total Energy} \\
 	\hline
-	BASE & $20 + 40 + 50 + 15 = 125$  \\
+	\textbf{BASE} & $(20 \times \frac{1}{20}) + (40 \times \frac{1}{40}) + 
+	(50 \times \frac{1}{50}) + (15 \times \frac{1}{15}) = 4$  \\
 	\hline
-	NEW1 & $10 + 30 + 15 + 30 = 85$ \\
+	\textbf{NEW1} & $(10 \times \frac{1}{20}) + (30 \times \frac{1}{40}) + 
+	(15 \times \frac{1}{50}) + (30 \times \frac{1}{15}) = 3.55$ \\
 	\hline
-	NEW2 & $30 + 60 + 20 + 20 = 130$ \\
+	\textbf{NEW2} & $(30 \times \frac{1}{20}) + (60 \times \frac{1}{40}) + 
+	(20 \times \frac{1}{50}) + (20 \times \frac{1}{15}) = 4.73$ \\
 	\hline
-	NEW3 & $70 + 35 + 30 + 10 = 145$ \\
+	\textbf{NEW3} & $(70 \times \frac{1}{20}) + (35 \times \frac{1}{40}) + 
+	(30 \times \frac{1}{50}) + (10 \times \frac{1}{15}) = 5.64$ \\
 	\hline
 \end{tabular}
 \caption{(ii.) Total energy consumption for every machine.}
-\label{tbl:wext}
+\label{tbl:wenrgy}
 \end{table}
 
 
-\partt{iii.} Power = $\frac{Energy}{Time}$  
+\partt{iii.} Power shows the energy per time unit, i.e., $Power = 
+\frac{Energy}{Time}$. Table~\ref{tbl:power} shows the power required by 
+each application on all machines.
+
+\begin{table}[h]
+\center
+\begin{tabular}{|l|c|c|c|c|}
+	\hline
+	 & \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} \\
+	\hline
+	\textbf{BASE} & $\frac{20}{3}$ & $\frac{40}{2.5}$ & $\frac{50}{1}$ 
+	& $\frac{15}{12}$ \\
+	\hline
+	\textbf{NEW1} & $\frac{10}{7}$ & $\frac{30}{3}$ & $\frac{15}{5}$ 
+	& $\frac{30}{1}$ \\
+	\hline
+	\textbf{NEW2} & $\frac{30}{2}$ & $\frac{60}{1}$ & $\frac{20}{3}$ 
+	& $\frac{20}{8}$ \\
+	\hline
+	\textbf{NEW3} & $\frac{70}{1}$ & $\frac{35}{3}$ & $\frac{30}{2}$ 
+	& $\frac{10}{13}$ \\
+	\hline
+\end{tabular}
+\caption{(iii.) Power required for every application.}
+\label{tbl:power}
+\end{table}
+
+Based on the power for each application, we compute the weights similar to 
+part (i) and (ii). So, the weight of applications A, B, C, and D will respectively 
+be: $\frac{3}{20}$, $\frac{5}{80}$, $\frac{1}{50}$, and $\frac{12}{15}$. 
+Therefore, according to weighted sum of power, as shown in 
+Table~\ref{tbl:wpwr}, machine BASE consumes the least power.
 
 \begin{table}[h]
 \center
@@ -80,17 +118,20 @@ Table~\ref{tbl:wext}.
 	\hline
 	 & \textbf{Total Power} \\
 	\hline
-	BASE & $\frac{20}{3} + \frac{40}{2.5} + \frac{50}{1} + \frac{15}{12} = 73.92$  \\
+	\textbf{BASE} & $(\frac{20}{3} \times \frac{3}{20}) + (\frac{80}{5} \times \frac{5}{80}) + (\frac{50}{1} \times \frac{1}{50}) + (\frac{15}{12} \times \frac{12}{15})  = 4$  \\
 	\hline
-	NEW1 & $\frac{10}{7} + \frac{30}{3} + \frac{15}{5} + \frac{30}{1} = 44.43$ \\
+	\textbf{NEW1} & $(\frac{10}{7} \times \frac{3}{20}) + (\frac{30}{3} \times \frac{5}{80}) + (\frac{15}{5} \times \frac{1}{50}) + 
+	(\frac{30}{1} \times \frac{12}{15}) = 24.90$ \\
 	\hline
-	NEW2 & $\frac{30}{2} + \frac{60}{1} + \frac{20}{3} + \frac{20}{8} = 84.17$ \\
+	\textbf{NEW2} & $(\frac{30}{2} \times \frac{3}{20}) + (\frac{60}{1} \times \frac{5}{80}) + (\frac{20}{3} \times \frac{1}{50}) + 
+	(\frac{20}{8} \times \frac{12}{15}) = 8.13$ \\
 	\hline
-	NEW3 & $\frac{70}{1} + \frac{35}{3} + \frac{30}{2} + \frac{10}{13} = 97.44$ \\
+	\textbf{NEW3} & $(\frac{70}{1} \times \frac{3}{20}) + (\frac{35}{3} \times \frac{5}{80}) + (\frac{30}{2} \times \frac{1}{50}) + 
+	(\frac{10}{13} \times \frac{12}{15}) = 12.14$ \\
 	\hline
 \end{tabular}
 \caption{(iii.) Total power required for every machine.}
-\label{tbl:wext}
+\label{tbl:wpwr}
 \end{table}
 
 
