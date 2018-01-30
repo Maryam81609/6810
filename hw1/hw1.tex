@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 
 \newcommand{\q}[1]{\subsection*{Question {#1}}}
 \renewcommand{\part}[1]{\paragraph*{{#1}.}}
@@ -244,6 +244,48 @@ Improvement_{overall} = \frac{1}{(1-0.2) + \frac{0.2}{1/0.5}} =
 
 Therefore, reducing the graphics energy by 50\% is a better energy optimization.
 
+\q{4} $Power_{dynamic} = 70^w,  Power_{static} = 30^w,  Time = 15^s$
 
+\part{i} $Energy = (Power_{dynamic} + Power_{static}) \times Time$.
+
+\[
+Energy = (70 + 30) \times 15 = 1500 ^J
+\]
+
+\part{ii} Scaling down the frequency (by 30\%) affects the dynamic power and time. 
+
+$Power_{dynamic} = Activity x Capacitance x Voltage^2 x Frequency$
+
+\[
+Power'_{dynamic} = 0.7 Power_{dynamic} = 0.7 \times 70 = 49^w
+\]
+\[
+Time' = \frac{1}{0.7} \times Time = \frac{15}{0.7}^s
+\]
+\[
+Energy = (49 + 30) \times \frac{15}{0.7} = 1692.86 ^J
+\]
+
+\part{iii} Reducing the voltage affects both static and dynamic powers. In addition,  
+reducing the frequency affects the dynamic power and time. 
+
+$Power_{dynamic} = Activity \times Capacitance \times Voltage^2 
+\times Frequency$
+
+$Power_{static} = Voltage \times CurrentStatic$
+
+\[
+Power'_{dynamic} = 0.7 \times 0.7^2 \times Power_{dynamic} = 
+0.7^3 \times 70 = 24.01^w
+\]
+\[
+Power'_{static} = 0.7 \times Power_{static} = 0.7 \times 30 = 21^w
+\]
+\[
+Time' = \frac{1}{0.7} \times Time = \frac{15}{0.7}^s
+\]
+\[
+Energy = (24.01 + 21) \times \frac{15}{0.7} = 964.5^J 
+\]
 
 \end{document}
