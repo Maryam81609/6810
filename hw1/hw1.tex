@@ -169,7 +169,7 @@ Table~\ref{tbl:newfreq}.
 	\textbf{Cycles} & 2 & 1 & 2 & 1 & 4 & 4 \\
 	\hline
 \end{tabular}
-\caption{(iii) Total power required for every machine.}
+\caption{Frequencies and cycle counts for instructions for the new processor.}
 \label{tbl:newfreq}
 \end{table}
 
@@ -196,6 +196,54 @@ $CPUTime_{new} = 3.37 \times 0.7 \times CT$
 Speedup = \frac{CPUTime_{old}}{CPUTime_{new}} = \frac{2.65 CT}{(3.37 
 \times 0.7) CT} = 1.13
 \]
+
+
+\q{3} Table~\ref{tbl:amdahl} summarizes the question. 
+
+\begin{table}[h]
+\center
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	 & \textbf{WI} & \textbf{Graphics} & \textbf{CPU} & \textbf{Other} \\
+	\hline
+	\textbf{Fraction} & 50\% & 20\% & 10\% & 20\% \\
+	\hline
+\end{tabular}
+\caption{Energy consumption by each unit.}
+\label{tbl:amdahl}
+\end{table}
+
+Also, amdahl's law is as follows:
+
+\[
+Improvement_{overall} = \frac{1}{(1-Fraction_{enhanced}) + \frac{Fraction_{enhanced}}{Improvement_{enhanced}}}.
+\]
+\part{i} Reducing WI energy by 10\%, i.e., $energy'_{WI} = 0.9 energy_{WI}$. 
+So, $Improvement_{enhanced} = \frac{1}{0.9}$, and thereby:
+
+\[
+Improvement_{overall} = \frac{1}{(1-0.5) + \frac{0.5}{1/0.9}} = 
+\frac{1}{0.95} = 1.05
+\]
+
+\part{ii} Reducing CPU energy by 60\%, i.e., $energy'_{CPU} = 0.4 energy_{CPU}$. 
+So, $Improvement_{enhanced} = \frac{1}{0.4}$, and thereby:
+
+\[
+Improvement_{overall} = \frac{1}{(1-0.1) + \frac{0.1}{1/0.4}} = 
+\frac{1}{0.94} = 1.06
+\]
+
+\part{iii} Reducing Graphics energy by 50\%, i.e., $energy'_{G} = 0.5 energy_{G}$. 
+So, $Improvement_{enhanced} = \frac{1}{0.5}$, and thereby:
+
+\[
+Improvement_{overall} = \frac{1}{(1-0.2) + \frac{0.2}{1/0.5}} = 
+\frac{1}{0.9} = 1.11
+\]
+
+Therefore, reducing the graphics energy by 50\% is a better energy optimization.
+
 
 
 \end{document}
