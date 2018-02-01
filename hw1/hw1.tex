@@ -22,63 +22,50 @@
 
 \q{1} 
 
-\part{i} According to assumption all of the applications are equally likely to be 
-executed by users, i.e., they are fairly executed. So, we compute sum of the 
-weighted execution times. To that end, let us consider the computer system (BASE) 
-as the reference machine. Thus, the weights of applications A, B, C, and D will 
-respectively be: $\frac{1}{3}, \frac{2}{5}, 1, and \frac{1}{12}$. That results in 
-the sum of weighted execution time for every machine as shown in 
-Table~\ref{tbl:wext}. So, machine BASE has the least execution time. 
+\part{i} According to assumption all of the applications are equally likely to 
+be executed by users, i.e., they are fairly executed. So, we compute the 
+arithmetic mean to find the system with least execution time. As shown in Table~\ref{tbl:wext}, machine NEW2 has the least execution time. 
 
 \begin{table}[h]
 \center
 \begin{tabular}{|l|r|}
 	\hline
-	 & \textbf{Weighted Sum} \\
+	 & \textbf{Arithmetic Mean (Exe Time)} \\
 	\hline
-	\textbf{BASE} & $(3 \times \frac{1}{3}) + (\frac{5}{2} \times \frac{2}{5}) + 
-	(1 \times 1) + (12 \times \frac{1}{12}) = 4.00$  \\
+	\textbf{BASE} & $\frac{1}{4}(3 + 2.5 + 1 + 12) = 4.625$  \\
 	\hline
-	\textbf{NEW1} & $(7 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
-	(5 \times 1) + (1 \times \frac{1}{12}) = 8.62$ \\
+	\textbf{NEW1} & $\frac{1}{4}(7 + 3 + 5 + 1) = 4$ \\
 	\hline
-	\textbf{NEW2} & $(2 \times \frac{1}{3}) + (1 \times \frac{2}{5}) + 
-	(3 \times 1) + (8 \times \frac{1}{12}) = 4.73$ \\
+	\textbf{NEW2} & $\frac{1}{4}(2 + 1 + 3 + 8) = 3.5$ \\
 	\hline
-	\textbf{NEW3} & $(1 \times \frac{1}{3}) + (3 \times \frac{2}{5}) + 
-	(2 \times 1) + (13 \times \frac{1}{12}) = 4.62$ \\
+	\textbf{NEW3} & $\frac{1}{4}(1 + 3 + 2 + 13) = 4.75$ \\
 	\hline
 \end{tabular}
-\caption{(i) Sum of weighted execution times.}
+\caption{Arithmetic mean of execution times.}
 \label{tbl:wext}
 \end{table}
 
 
-\part{ii} We compute the weighted sum of energy for each machine similar to 
-part (i). So, the weight of applications A, B, C, and D will respectively be: 
-$\frac{1}{20}, \frac{1}{40}, \frac{1}{50}, and \frac{1}{15}$. As shown in 
+\part{ii} We compute the arithmetic mean of energy for each machine similar to 
+part (i), as energy has also a unit, and it is not a ratio. As shown in 
 Table~\ref{tbl:wenrgy}, machine NEW1 has the least energy consumption.
 
 \begin{table}[h]
 \center
 \begin{tabular}{|l|r|}
 	\hline
-	 & \textbf{Total Energy} \\
+	 & \textbf{Arithmetic Mean (Energy)} \\
 	\hline
-	\textbf{BASE} & $(20 \times \frac{1}{20}) + (40 \times \frac{1}{40}) + 
-	(50 \times \frac{1}{50}) + (15 \times \frac{1}{15}) = 4$  \\
+	\textbf{BASE} & $\frac{1}{4}(20 + 40 + 50 + 15) = 31.25$  \\
 	\hline
-	\textbf{NEW1} & $(10 \times \frac{1}{20}) + (30 \times \frac{1}{40}) + 
-	(15 \times \frac{1}{50}) + (30 \times \frac{1}{15}) = 3.55$ \\
+	\textbf{NEW1} & $\frac{1}{4}(10 + 30 + 15 + 30) = 21.25$ \\
 	\hline
-	\textbf{NEW2} & $(30 \times \frac{1}{20}) + (60 \times \frac{1}{40}) + 
-	(20 \times \frac{1}{50}) + (20 \times \frac{1}{15}) = 4.73$ \\
+	\textbf{NEW2} & $\frac{1}{4}(30 + 60 + 20 + 20) = 32.5$ \\
 	\hline
-	\textbf{NEW3} & $(70 \times \frac{1}{20}) + (35 \times \frac{1}{40}) + 
-	(30 \times \frac{1}{50}) + (10 \times \frac{1}{15}) = 5.64$ \\
+	\textbf{NEW3} & $\frac{1}{4}(70 + 35 + 30 + 10) = 36.25$ \\
 	\hline
 \end{tabular}
-\caption{(ii) Total energy consumption for every machine.}
+\caption{Arithmetic mean of energy consumption for every machine.}
 \label{tbl:wenrgy}
 \end{table}
 
@@ -106,40 +93,30 @@ each application on all machines.
 	& $\frac{10}{13}$ \\
 	\hline
 \end{tabular}
-\caption{(iii) Power required for every application.}
+\caption{Power required for every application.}
 \label{tbl:power}
 \end{table}
 
-Based on the power for each application, we compute the weights similar to 
-part (i) and (ii). So, the weight of applications A, B, C, and D will respectively 
-be: $\frac{3}{20}$, $\frac{5}{80}$, $\frac{1}{50}$, and $\frac{12}{15}$. 
-Therefore, according to weighted sum of power, as shown in 
-Table~\ref{tbl:wpwr}, machine BASE consumes the least power.
+Since power is not a ration, again we use arithmetic mean, likewise part (i) and (ii). As shown in 
+Table~\ref{tbl:wpwr}, machine NEW1 requires the least power.
 
 \begin{table}[h]
 \center
 \begin{tabular}{|l|r|}
 	\hline
-	 & \textbf{Total Power} \\
+	 & \textbf{Arithmetic Mean (Power)} \\
 	\hline
-	\textbf{BASE} & $(\frac{20}{3} \times \frac{3}{20}) + (\frac{80}{5} \times 
-	\frac{5}{80}) + (\frac{50}{1} \times \frac{1}{50}) + (\frac{15}{12} \times 
-	\frac{12}{15})  = 4$  \\
+	\textbf{BASE} & $\frac{1}{4}(\frac{20}{3} + \frac{80}{5} + \frac{50}{1} + \frac{15}{12}) = 18.48$  \\
 	\hline
-	\textbf{NEW1} & $(\frac{10}{7} \times \frac{3}{20}) + (\frac{30}{3} \times 
-	\frac{5}{80}) + (\frac{15}{5} \times \frac{1}{50}) + 
-	(\frac{30}{1} \times \frac{12}{15}) = 24.90$ \\
+	\textbf{NEW1} & $\frac{1}{4}(\frac{10}{7} + \frac{30}{3} + \frac{15}{5} + \frac{30}{1}) = 11.11$ \\
 	\hline
-	\textbf{NEW2} & $(\frac{30}{2} \times \frac{3}{20}) + (\frac{60}{1} \times 
-	\frac{5}{80}) + (\frac{20}{3} \times \frac{1}{50}) + 
-	(\frac{20}{8} \times \frac{12}{15}) = 8.13$ \\
+	\textbf{NEW2} & $\frac{1}{4}(\frac{30}{2} + \frac{60}{1} + \frac{20}{3} + \frac{20}{8}) = 21.04$ \\
 	\hline
-	\textbf{NEW3} & $(\frac{70}{1} \times \frac{3}{20}) + (\frac{35}{3} \times 
-	\frac{5}{80}) + (\frac{30}{2} \times \frac{1}{50}) + 
-	(\frac{10}{13} \times \frac{12}{15}) = 12.14$ \\
+	\textbf{NEW3} & $\frac{1}{4}(\frac{70}{1} + \frac{35}{3} + \frac{30}{2} + 
+	\frac{10}{13}) = 24.36$ \\
 	\hline
 \end{tabular}
-\caption{(iii) Total power required for every machine.}
+\caption{Arithmetic mean of power required for every machine.}
 \label{tbl:wpwr}
 \end{table}
 
