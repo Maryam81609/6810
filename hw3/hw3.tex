@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 
 \usepackage{geometry}
-\geometry{hoffset=-0.6in}
+%\geometry{hoffset=-0.6in}
 \usepackage[table]{xcolor}
 \usepackage{color}
 
@@ -35,6 +35,7 @@ To optimize the code, we move \code{DADDUI R1, R1, \#-8} to where the first stal
 
 \begin{table}[h]
 \center
+\small
 \begin{tabular}{lcccl}
 	 \code{Loop:} \code{L.D F1, 0(R1)} & & & &  \\
 	 \code{L.D F2, 0(R2)}  & & & & \\
@@ -60,6 +61,8 @@ To optimize the code, we move \code{DADDUI R1, R1, \#-8} to where the first stal
 For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} to \code{F5}, and \code{F3} to \code{F6}. Then, the original schedule obtained by only unrolling twice and its optimized version are shown on the left hand side and the right hand side, respectively, as follows. To optimize the code, we move \code{L.D F4, -8(R1)} up to fill the first stall cycle, and then move the other load \code{L.D F5, -8(R2)} up to fill the second stall cycle, which is right after \code{MUL F3, F1, F2} instruction, and so forth. While execution store of the first iteration, we should use offset 16, as the memory address in \code{R3} has already been decreased, so that we store writes to the correct location. Similarly, for the store of the second iteration we should use offset 8.
 
 \begin{table}[h]
+\center
+\small
 \begin{tabular}{lcccl}
 	  \code{Loop:} \code{L.D F1, 0(R1)} & & & &  \\
 	 \code{L.D F2, 0(R2)} & & & &  \\
@@ -89,10 +92,11 @@ For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} t
 \label{tbl:q1p2}
 \end{table}
 
-\part{iii} According to the slide 21 at the 8$^{th}$ lecture, we see that in iteration \textit{i} the \code{S.D} instruction from two previous iteration, i.e., \code{S.D[i+2]} (because \textit{i} is decreasing), and the \code{MUL} instruction from the previous iteration, i.e., \code{MUL[i+1]} and two load instructions from the current iteration, i.e., \code{L.D[i]} form the loop body, as shown in the following. In the software pipelined version, \code{MUL F3, F1, F2} uses the values of \code{F1} and \code{F2} from the previous iteration, as they are loaded with the new values after \code{MUL} instruction executes. Likewise, in the instruction \code{S.D F3, 16(R3)}, the value of \code{F3} is from the previous iteration, which itself is computed based on the values of \code{F1} and \code{F2} in two previous iteration. Therefore, \code{S.D} instruction is attributed to two previous iteration, which thereby should write to the memory location at \code{R3} with offset 16.
+\part{iii} According to the slide 21 at the 8$^{th}$ lecture, in iteration \textit{i} the \code{S.D} instruction from two previous iteration, i.e., \code{S.D[i+2]} (because \textit{i} is decreasing), and the \code{MUL} instruction from the previous iteration, i.e., \code{MUL[i+1]} and two load instructions from the current iteration, i.e., \code{L.D[i]} form the loop body as shown in the following. In the software pipelined version, \code{MUL F3, F1, F2} uses the values of \code{F1} and \code{F2} from the previous iteration, as they are loaded with the new values after \code{MUL} instruction executes. Likewise, in the instruction \code{S.D F3, 16(R3)}, the value of \code{F3} is from the previous iteration, which itself is computed based on the values of \code{F1} and \code{F2} in two previous iteration. Therefore, \code{S.D} instruction is attributed to two previous iteration, which thereby should write to the memory location at \code{R3} with offset 16.
 
 \begin{table}[h]
 \center
+\small
 \begin{tabular}{lcccl}
 	  \code{Loop:} \code{L.D F1, 0(R1)} & & & &  \code{Loop:} \code{S.D F3, 16(R3)} \\
 	 \code{L.D F2, 0(R2)}  & & & & \code{MUL F3, F1, F2}\\
@@ -108,9 +112,11 @@ For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} t
 \label{tbl:q1p3}
 \end{table}
 
-\q{2} Likewise to the question 1, we reorder instructions, preserving the dependency and waiting time between instructions, to fill the stall cycles. The following shows the original schedule with stall cycles at the left hand side and the optimized schedule without unrolling loop, which has no stall cycle. 
+\q{2} We reorder instructions, preserving the dependency and waiting time between instructions, to eliminate the stalls. The following shows the original schedule with stall cycles at the left hand side and the optimized schedule with no stall cycle at the right hand side. 
 
 \begin{table}[h]
+\center
+\small
 \begin{tabular}{lcccl}
 	  \code{Loop:} \code{L.D F2, 0(R2)} & & & & \\
 	 \code{L.D F3, 0(R3)} & & & & \\
@@ -140,6 +146,8 @@ For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} t
 \part{i} 
 
 \begin{table}[h]
+\center
+\small
 \begin{tabular}{llcll}
 	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\
 	 \code{Loop:} \code{L.D F1, 0(R1)} &  & & & \\
@@ -165,6 +173,8 @@ For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} t
 \part{ii} 
 
 \begin{table}[h]
+\center
+\small
 \begin{tabular}{llcll}
 	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\
 	 \code{Loop:} \code{L.D F11, 0(R1)} &  & & & \\
@@ -213,6 +223,8 @@ For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} t
 \end{table}
 
 \begin{table}[h]
+\center
+\small
 \begin{tabular}{llcll}
 	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\ 
 	 \code{L.D F51, -32(R1)} & \stall & & & \\	
