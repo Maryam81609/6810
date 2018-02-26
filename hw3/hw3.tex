@@ -30,8 +30,8 @@
 
 \q{1} 
 
-\part{i} The following shows the original assembly code with stalls at the left hand side and the optimized schedule without unrolling at the right hand side.
-
+\part{i} The following shows the original assembly code with stalls at the left hand side and the optimized schedule without unrolling at the right hand side. 
+To optimize the code, we move \code{DADDUI R1, R1, \#-8} to where the first stall is, and then the other two \code{DADDUI}s for \code{R2} and \code{R3} to the where the next two stalls are. Finally, we move the branch instruction 1 step before store, so that we eliminate the last \code{NOP} resulting from the branch instruction, i.e., the store instruction executes at the \code{NOP} for branch instruction cycle. In the optimized schedule, since the memory address in \code{R3} has already been decreased, we should used offset 8 when storing \code{F3} value at the previous memory location denoted by \code{R3}.
 
 \begin{table}[h]
 \center
@@ -57,7 +57,7 @@
 
 
 \part{ii} 
-For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5}, and \code{F3} to \code{F6}. The original schedule obtained by only unrolling twice:
+For the unrolled second iteration, we rename \code{F1} to \code{F4}, \code{F2} to \code{F5}, and \code{F3} to \code{F6}. Then, the original schedule obtained by only unrolling twice and its optimized version are shown on the left hand side and the right hand side, respectively, as follows. To optimize the code, we move \code{L.D F4, -8(R1)} up to fill the first stall cycle, and then move the other load \code{L.D F5, -8(R2)} up to fill the second stall cycle, which is right after \code{MUL F3, F1, F2} instruction, and so forth. While execution store of the first iteration, we should use offset 16, as the memory address in \code{R3} has already been decreased, so that we store writes to the correct location. Similarly, for the store of the second iteration we should use offset 8.
 
 \begin{table}[h]
 \begin{tabular}{lcccl}
@@ -89,8 +89,7 @@ For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5
 \label{tbl:q1p2}
 \end{table}
 
-
-\part{iii} 
+\part{iii} According to the slide 21 at the 8$^{th}$ lecture, we see that in iteration \textit{i} the \code{S.D} instruction from two previous iteration, i.e., \code{S.D[i+2]} (because \textit{i} is decreasing), and the \code{MUL} instruction from the previous iteration, i.e., \code{MUL[i+1]} and two load instructions from the current iteration, i.e., \code{L.D[i]} form the loop body, as shown in the following. In the software pipelined version, \code{MUL F3, F1, F2} uses the values of \code{F1} and \code{F2} from the previous iteration, as they are loaded with the new values after \code{MUL} instruction executes. Likewise, in the instruction \code{S.D F3, 16(R3)}, the value of \code{F3} is from the previous iteration, which itself is computed based on the values of \code{F1} and \code{F2} in two previous iteration. Therefore, \code{S.D} instruction is attributed to two previous iteration, which thereby should write to the memory location at \code{R3} with offset 16.
 
 \begin{table}[h]
 \center
