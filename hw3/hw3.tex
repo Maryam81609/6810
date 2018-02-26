@@ -36,9 +36,9 @@
 \begin{table}[h]
 \center
 \begin{tabular}{lcccl}
-	 \code{L.D F1, 0(R1)} & & & &  \\
+	 \code{Loop:} \code{L.D F1, 0(R1)} & & & &  \\
 	 \code{L.D F2, 0(R2)}  & & & & \\
-	 \stall &  & & & \code{L.D F1, 0(R1)} \\
+	 \stall &  & & &  \code{Loop:} \code{L.D F1, 0(R1)} \\
 	 \code{MUL F3, F1, F2}  & & & & \code{L.D F2, 0(R2)} \\
 	 \stall &  & & & \code{DADDUI R1, R1, \#-8} \\
 	 \stall & & & & \code{MUL F3, F1, F2}  \\
@@ -61,12 +61,12 @@ For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5
 
 \begin{table}[h]
 \begin{tabular}{lcccl}
-	 \code{L.D F1, 0(R1)} & & & &  \\
+	  \code{Loop:} \code{L.D F1, 0(R1)} & & & &  \\
 	 \code{L.D F2, 0(R2)} & & & &  \\
 	 \stall & & & &   \\
 	 \code{MUL F3, F1, F2} & & & &  \\
 	 \stall & & & &  \\
-	 \stall & & & & \code{L.D F1, 0(R1)}  \\
+	 \stall & & & &  \code{Loop:} \code{L.D F1, 0(R1)}  \\
 	 \stall & & & &  \code{L.D F2, 0(R2)} \\
 	 \stall & & & & \code{L.D F4, -8(R1)}  \\
 	 \code{S.D F3, 0(R3)} & & & & \code{MUL F3, F1, F2}  \\
@@ -95,15 +95,15 @@ For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5
 \begin{table}[h]
 \center
 \begin{tabular}{lcccl}
-	 \code{L.D F1, 0(R1)} & & & & \code{S.D F3, 16(R3)} \\
+	  \code{Loop:} \code{L.D F1, 0(R1)} & & & &  \code{Loop:} \code{S.D F3, 16(R3)} \\
 	 \code{L.D F2, 0(R2)}  & & & & \code{MUL F3, F1, F2}\\
 	 \code{MUL F3, F1, F2}  & & & & \code{L.D F1, 0(R1)} \\
 	 \code{S.D F3, 0(R3)} & & & & \code{L.D F2, 0(R2)} \\
 	 \code{DADDUI R1, R1, \#-8} & & $\Rightarrow$ & & \code{DADDUI R1, R1, \#-8} \\
 	 \code{DADDUI R2, R2, \#-8} & & & & \code{DADDUI R2, R2, \#-8} \\
-	 \code{DADDUI R3, R3, \#-8} & & & & \code{BNE R1, R4, Loop} \\
-	 \code{BNE R1, R4, Loop} & & & & \code{DADDUI R3, R3, \#-8} \\
-	 \code{NOP} & & & & \\
+	 \code{DADDUI R3, R3, \#-8} & & & & \code{DADDUI R3, R3, \#-8} \\
+	 \code{BNE R1, R4, Loop} & & & & \code{BNE R1, R4, Loop} \\ 
+	 \code{NOP} & & & & \code{NOP} \\
 	 Q1(iii): Original loop body. & & & & Q1(iii): Software pipelined loop body.
 \end{tabular}
 \label{tbl:q1p3}
@@ -113,10 +113,10 @@ For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5
 
 \begin{table}[h]
 \begin{tabular}{lcccl}
-	 \code{L.D F2, 0(R2)} & & & & \\
+	  \code{Loop:} \code{L.D F2, 0(R2)} & & & & \\
 	 \code{L.D F3, 0(R3)} & & & & \\
 	 \stall & & & &\\
-	 \code{MULT.D F1, F2, F3} & & & & \code{L.D F2, 0(R2)} \\
+	 \code{MULT.D F1, F2, F3} & & & &  \code{Loop:} \code{L.D F2, 0(R2)} \\
 	 \code{L.D F4, 0(R4)} & & & & \code{L.D F3, 0(R3)} \\
 	 \stall & & & & \code{L.D F4, 0(R4)} \\
 	 \code{ADD.D F5, F4, F1} & & & & \code{MULT.D F1, F2, F3} \\
@@ -143,9 +143,9 @@ For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5
 \begin{table}[h]
 \begin{tabular}{llcll}
 	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\
-	 \code{L.D F1, 0(R1)} &  & & & \\
+	 \code{Loop:} \code{L.D F1, 0(R1)} &  & & & \\
 	 \cellstall &  & & & \\
-	 \stall & \code{F.MUL F3, F1, F2} & & \code{L.D F1, 0(R1)} &  \\
+	 \stall & \code{F.MUL F3, F1, F2} & & \code{Loop:} \code{L.D F1, 0(R1)} &  \\
 	 \cellstall & \cellstall & & \code{DADDUI R1, R1, \#-8} &  \\
 	 \stall & \code{F.ADD F5, F3, F4} & & \code{DADDUI R2, R2, \#-8} & \code{F.MUL F3, F1, F2} \\
 	 \cellstall &  & & \cellstall & \cellstall \\
@@ -168,11 +168,11 @@ For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5
 \begin{table}[h]
 \begin{tabular}{llcll}
 	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\
-	 \code{L.D F11, 0(R1)} &  & & & \\
+	 \code{Loop:} \code{L.D F11, 0(R1)} &  & & & \\
 	 \stall &  & & & \\
 	 \stall & \code{F.MUL F13, F11, F12} & & & \\
 	 \cellstall & \cellstall & & & \\
-	 \stall & \code{F.ADD F15, F13, F14} & & \code{L.D F11, 0(R1)} &  \\
+	 \stall & \code{F.ADD F15, F13, F14} & & \code{Loop:} \code{L.D F11, 0(R1)} &  \\
 	 \cellstall & \cellstall & & \code{L.D F21, -8(R1)} &  \\
 	 \cellstall & \cellstall &  & \code{L.D F31, -16(R1)} & \code{F.MUL F13, F11, F12} \\
 	 \cellstall & \cellstall & & \code{L.D F41, -24(R1)} & \code{F.MUL F23, F21, F22} \\
