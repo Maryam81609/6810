@@ -1,0 +1,238 @@
+\documentclass[11pt]{article}
+
+\usepackage{geometry}
+\geometry{hoffset=-0.6in}
+\usepackage[table]{xcolor}
+\usepackage{color}
+
+
+\newcommand{\q}[1]{\subsection*{Question {#1}}}
+\renewcommand{\part}[1]{\paragraph*{{#1}.}}
+
+\newcommand{\code}[1]{\textsf{#1}}
+
+%\newcommand{\answr}[1]{\textcolor{blue}{#1}}
+%\newcommand{\inst}[2]{\textcolor{blue}{{#1}{#2}}}
+
+\newcommand{\stall}{\textcolor{red}{\textbf{Stall}}}
+\newcommand{\cellstall}{\cellcolor{red!25}\textcolor{black}{\textbf{Stall}}}
+
+\title{Homework Assignment 3\\
+	Instruction Level Parallelism\\
+	CS/ECE 6810: Computer Architecture}
+	
+\author{Maryam Dabaghchian-u1078006}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\q{1} 
+
+\part{i} The following shows the original assembly code with stalls at the left hand side and the optimized schedule without unrolling at the right hand side.
+
+
+\begin{table}[h]
+\center
+\begin{tabular}{lcccl}
+	 \code{L.D F1, 0(R1)} & & & &  \\
+	 \code{L.D F2, 0(R2)}  & & & & \\
+	 \stall &  & & & \code{L.D F1, 0(R1)} \\
+	 \code{MUL F3, F1, F2}  & & & & \code{L.D F2, 0(R2)} \\
+	 \stall &  & & & \code{DADDUI R1, R1, \#-8} \\
+	 \stall & & & & \code{MUL F3, F1, F2}  \\
+	 \stall & & & & \code{DADDUI R2, R2, \#-8}  \\
+	 \stall & & $\Rightarrow$ & & \code{DADDUI R3, R3, \#-8}  \\
+	 \code{S.D F3, 0(R3)} & & & & \stall  \\
+	 \code{DADDUI R1, R1, \#-8} & & & &  \code{BNE R1, R4, Loop} \\
+	 \code{DADDUI R2, R2, \#-8} & & & &  \code{S.D F3, 8(R3)} \\
+	 \code{DADDUI R3, R3, \#-8} & & & &   \\
+	 \code{BNE R1, R4, Loop} & & & &  \\
+	 \code{NOP} & & & &  \\
+	 Q1(i): Original schedule with stalls. & & & & Q1(i): Optimized schedule without unrolling.
+\end{tabular}
+\label{tbl:q1p1}
+\end{table}
+
+
+\part{ii} 
+For the unrolled iteration, rename \code{F1} to \code{F4}, \code{F2} to \code{F5}, and \code{F3} to \code{F6}. The original schedule obtained by only unrolling twice:
+
+\begin{table}[h]
+\begin{tabular}{lcccl}
+	 \code{L.D F1, 0(R1)} & & & &  \\
+	 \code{L.D F2, 0(R2)} & & & &  \\
+	 \stall & & & &   \\
+	 \code{MUL F3, F1, F2} & & & &  \\
+	 \stall & & & &  \\
+	 \stall & & & & \code{L.D F1, 0(R1)}  \\
+	 \stall & & & &  \code{L.D F2, 0(R2)} \\
+	 \stall & & & & \code{L.D F4, -8(R1)}  \\
+	 \code{S.D F3, 0(R3)} & & & & \code{MUL F3, F1, F2}  \\
+	 \code{L.D F4, -8(R1)} & & & &  \code{L.D F5, -8(R2)}  \\
+	 \code{L.D F5, -8(R2)} & & $\Rightarrow$ & & \code{DADDUI R1, R1, \#-16} \\
+	 \stall & & & &  \code{MUL F6, F4, F5} \\
+	 \code{MUL F6, F4, F5} & & & & \code{DADDUI R2, R2, \#-16}  \\
+	 \stall & & & &  \code{DADDUI R3, R3, \#-16} \\
+	 \stall  & & & & \code{S.D F3, 16(R3)} \\
+	 \stall & & & & \code{BNE R1, R4, Loop}  \\
+	 \stall & & & & \code{S.D F3, 8(R3)}  \\	 
+	 \code{S.D F6, -8(R3)} & & & &  \\
+	 \code{DADDUI R1, R1, \#-16} & & & &  \\
+	 \code{DADDUI R2, R2, \#-16} & & & &  \\
+	 \code{DADDUI R3, R3, \#-16} & & & &  \\
+	 \code{BNE R1, R4, Loop} & & & &  \\
+	 \code{NOP} & & & & \\
+	 Q1(ii): Unrolled schedule. & & & & Q1(ii): Optimized unrolled schedule.
+\end{tabular}
+\label{tbl:q1p2}
+\end{table}
+
+
+\part{iii} 
+
+\begin{table}[h]
+\center
+\begin{tabular}{lcccl}
+	 \code{L.D F1, 0(R1)} & & & & \code{S.D F3, 16(R3)} \\
+	 \code{L.D F2, 0(R2)}  & & & & \code{MUL F3, F1, F2}\\
+	 \code{MUL F3, F1, F2}  & & & & \code{L.D F1, 0(R1)} \\
+	 \code{S.D F3, 0(R3)} & & & & \code{L.D F2, 0(R2)} \\
+	 \code{DADDUI R1, R1, \#-8} & & $\Rightarrow$ & & \code{DADDUI R1, R1, \#-8} \\
+	 \code{DADDUI R2, R2, \#-8} & & & & \code{DADDUI R2, R2, \#-8} \\
+	 \code{DADDUI R3, R3, \#-8} & & & & \code{BNE R1, R4, Loop} \\
+	 \code{BNE R1, R4, Loop} & & & & \code{DADDUI R3, R3, \#-8} \\
+	 \code{NOP} & & & & \\
+	 Q1(iii): Original loop body. & & & & Q1(iii): Software pipelined loop body.
+\end{tabular}
+\label{tbl:q1p3}
+\end{table}
+
+\q{2} The original schedule with stalls:
+
+\begin{table}[h]
+\begin{tabular}{lcccl}
+	 \code{L.D F2, 0(R2)} & & & & \\
+	 \code{L.D F3, 0(R3)} & & & & \\
+	 \stall & & & &\\
+	 \code{MULT.D F1, F2, F3} & & & & \code{L.D F2, 0(R2)} \\
+	 \code{L.D F4, 0(R4)} & & & & \code{L.D F3, 0(R3)} \\
+	 \stall & & & & \code{L.D F4, 0(R4)} \\
+	 \code{ADD.D F5, F4, F1} & & & & \code{MULT.D F1, F2, F3} \\
+	 \stall & & & & \code{ADD.D F5, F4, F1} \\
+	 \stall & & $\Rightarrow$ & & \code{DADDUI R2, R2, \#-8} \\
+	 \stall & & & & \code{DADDUI R3, R3, \#-8} \\
+	 \stall & & & & \code{DADDUI R4, R4, \#-8} \\
+	 \code{S.D F5, 0(R5)} & & & & \code{DADDUI R5, R5, \#-8} \\
+	 \code{DADDUI R2, R2, \#-8} & & & & \code{BNE R2, R1, Loop} \\
+	 \code{DADDUI R3, R3, \#-8} & & & & \code{S.D F5, 8(R5)} \\
+	 \code{DADDUI R4, R4, \#-8} & & & &\\
+	 \code{DADDUI R5, R5, \#-8} & & & & \\
+	 \code{BNE R2, R1, Loop} & & & &\\
+	 \code{NOP} & & & &\\
+	 Q2: Original schedule with stalls. & & & & Q2: Optimized schedule without unrolling.
+\end{tabular}
+\label{tbl:q2}
+\end{table}
+
+
+\q{3} 
+\part{i} 
+
+\begin{table}[h]
+\begin{tabular}{llcll}
+	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\
+	 \code{L.D F1, 0(R1)} &  & & & \\
+	 \cellstall &  & & & \\
+	 \stall & \code{F.MUL F3, F1, F2} & & \code{L.D F1, 0(R1)} &  \\
+	 \cellstall & \cellstall & & \code{DADDUI R1, R1, \#-8} &  \\
+	 \stall & \code{F.ADD F5, F3, F4} & & \code{DADDUI R2, R2, \#-8} & \code{F.MUL F3, F1, F2} \\
+	 \cellstall &  & & \cellstall & \cellstall \\
+	 \cellstall &  & $\Rightarrow$ & \stall & \code{F.ADD F5, F3, F4} \\
+	 \cellstall &  & & \cellstall &  \\
+	 \cellstall &  & &  \cellstall &   \\
+	 \code{S.D F5, 0(R2)} &  & & \cellstall &  \\
+	 \code{DADDUI R1, R1, \#-8} &  & &  \code{BNE R1, R3, Loop} &  \\
+	 \code{DADDUI R2, R2, \#-8} &  & &  \code{S.D F5, 8(R2)} &  \\
+	 \code{BNE R1, R3, Loop}  &  & &  &  \\
+	 \code{NOP} &  & & & \\
+	 \multicolumn{2}{l}{Q3(i): Original schedule.} & & \multicolumn{2}{l}{Q3(i): Optimized schedule without unrolling.} 
+\end{tabular}
+\label{tbl:q3-p1}
+\end{table}
+
+
+\part{ii} 
+
+\begin{table}[h]
+\begin{tabular}{llcll}
+	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\
+	 \code{L.D F11, 0(R1)} &  & & & \\
+	 \stall &  & & & \\
+	 \stall & \code{F.MUL F13, F11, F12} & & & \\
+	 \cellstall & \cellstall & & & \\
+	 \stall & \code{F.ADD F15, F13, F14} & & \code{L.D F11, 0(R1)} &  \\
+	 \cellstall & \cellstall & & \code{L.D F21, -8(R1)} &  \\
+	 \cellstall & \cellstall &  & \code{L.D F31, -16(R1)} & \code{F.MUL F13, F11, F12} \\
+	 \cellstall & \cellstall & & \code{L.D F41, -24(R1)} & \code{F.MUL F23, F21, F22} \\
+	 \cellstall & \cellstall & & \code{L.D F51, -32(R1)} & \code{F.MUL F33, F31, F32} \\
+	 \code{S.D F15, 0(R2)} & \stall & & \code{DADDUI R1, R1, \#-40} & \code{F.MUL F43, F41, F42} \\
+	 \code{L.D F21, -8(R1)} & \stall & & \code{DADDUI R2, R2, \#-40} & \code{F.MUL F53, F51, F52} \\
+	 \cellstall & \cellstall & & \stall & \code{F.ADD F15, F13, F14} \\ 
+	 \stall & \code{F.MUL F23, F21, F22} & & \stall & \code{F.ADD F25, F23, F24} \\
+	 \cellstall & \cellstall & & \stall & \code{F.ADD F35, F33, F34} \\
+	 \stall & \code{F.ADD F25, F23, F24} & & \stall & \code{F.ADD F45, F43, F44} \\
+	 \cellstall & \cellstall & & \stall & \code{F.ADD F55, F53, F54} \\
+	 \cellstall & \cellstall & $\Rightarrow$ & \code{S.D F15, 40(R2)} &   \\
+	 \cellstall & \cellstall & & \code{S.D F25, 32(R2)} &  \\ 
+	 \cellstall & \cellstall & & \code{S.D F35, 24(R2)} &  \\
+	 \code{S.D F25, -8(R2)} & \stall & & \code{S.D F45, 16(R2)} &  \\
+	 \code{L.D F31, -16(R1)} & \stall & & \code{BNE R1, R3, Loop} &  \\ 
+	 \cellstall & \cellstall & &  \code{S.D F55, 8(R2)} &  \\	
+	 \stall & \code{F.MUL F33, F31, F32} & &  &  \\ 
+	 \cellstall & \cellstall & & & \\
+	 \stall & \code{F.ADD F35, F33, F34} & & & \\
+	 \cellstall &  & & & \\
+	 \cellstall &  &  &  & \\
+	 \cellstall &  & &  &  \\
+	 \cellstall &  & &   &   \\
+	 \code{S.D F35, -16(R2)} &  & &  &  \\ 
+	 \code{L.D F41, -24(R1)} & \stall & & & \\	
+	 \cellstall & \cellstall & & & \\
+	 \stall & \code{F.MUL F43, F41, F42} & & & \\
+	 \cellstall & \cellstall & & &  \\
+	 \stall & \code{F.ADD F45, F43, F44} & & & \\
+	 \cellstall &  & & & \\
+	 \cellstall &  &  &  & \\
+	 \cellstall &  & &  &  \\
+	 \cellstall &  & &   &   \\
+	 \code{S.D F45, -24(R2)} &  & &  &  \\  
+	 \multicolumn{2}{l}{Q3(ii): Unrolled schedule for 5 times.} & & \multicolumn{2}{l}{Q3(ii): Optimized schedule with unrolling 5 times.} 
+\end{tabular}
+\label{tbl:q3-p1-1}
+\end{table}
+
+\begin{table}[h]
+\begin{tabular}{llcll}
+	 Int Pipeline & FP Pipeline & & Int Pipeline & FP Pipeline \\ 
+	 \code{L.D F51, -32(R1)} & \stall & & & \\	
+	 \cellstall & \cellstall & & & \\
+	 \stall & \code{F.MUL F53, F51, F52} & & & \\
+	 \cellstall & \cellstall & & &  \\
+	 \stall & \code{F.ADD F55, F53, F54} & & & \\
+	 \cellstall &  & & & \\
+	 \cellstall &  &  &  & \\
+	 \cellstall &  & &  &  \\
+	 \cellstall &  & &   &   \\
+	 \code{S.D F55, -32(R2)} &  & &  &  \\ 
+	 \code{DADDUI R1, R1, \#-40} &  & &  & \\
+	 \code{DADDUI R2, R2, \#-40} &  & &  & \\
+	 \code{BNE R1, R3, Loop}  &  & &  &  \\
+	 \code{NOP} &  & & & \\
+	 \multicolumn{2}{l}{Q3(ii): Unrolled schedule for 5 times.} & & \multicolumn{2}{l}{Q3(ii): Optimized schedule with unrolling 5 times.} 
+\end{tabular}
+\label{tbl:q3-p1-2}
+\end{table}
+
+\end{document}
